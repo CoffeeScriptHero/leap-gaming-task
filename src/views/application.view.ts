@@ -1,16 +1,16 @@
-import { Application as PIXIApplication, Texture, TilingSprite, Container, Sprite } from "pixi.js";
+import { Application, Texture, Sprite, Container, TilingSprite } from "pixi.js";
 
-class Application {
-    protected app: PIXIApplication;
+export class ApplicationView {
+    private app: Application;
 
     constructor() {
-        this.app = new PIXIApplication();
+        this.app = new Application();
         this.app.renderer.resize(window.innerWidth, window.innerHeight);
         document.body.appendChild(this.app.view);
     }
 
-    async loadAssets(): Promise<void> {
-        return new Promise((res, rej) => {
+    loadAssets = async () => {
+        return new Promise<void>((res, rej) => {
             const loader = this.app.loader;
             loader
                 .add("background", "assets/backgrounds/page-background.png")
@@ -31,9 +31,9 @@ class Application {
 
             loader.load();
         });
-    }
+    };
 
-    onLoad() {
+    onLoad = () => {
         const bgTexture = Texture.from("background");
         const slotTexture = Texture.from("slot");
         const bgSprite = new TilingSprite(bgTexture, this.app.screen.width, this.app.screen.height);
@@ -46,13 +46,15 @@ class Application {
         slotSprite.anchor.set(0.5);
 
         this.app.stage.addChild(bgSprite, slotSprite);
-    }
+    };
 
-    addReels(reel) {
-        this.app.stage.addChild(reel);
-    }
+    addChild = (child: Container | Sprite) => {
+        this.app.stage.addChild(child);
+    };
 
-    start() {}
+    start = () => {
+        this.app.ticker.add(() => {
+            console.log("ticker");
+        });
+    };
 }
-
-export default Application;
