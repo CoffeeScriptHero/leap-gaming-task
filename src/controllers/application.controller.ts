@@ -19,4 +19,8 @@ export class ApplicationController {
     start = () => {
         this.appView.start();
     };
+
+    getTicker = () => {
+        return this.appView.getTicker();
+    };
 }

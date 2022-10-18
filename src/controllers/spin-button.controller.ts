@@ -8,7 +8,7 @@ export class SpinButtonController {
         return this.spinButtonView.generate();
     };
 
-    handleClick = () => {
-        this.spinButtonView.handleClick(this.spinButton.alphaFilter);
+    handleClick = (cb: Function) => {
+        this.spinButtonView.handleClick(this.spinButton.alphaFilter, cb);
     };
 }

@@ -1,17 +1,15 @@
 import { Application, Texture, Sprite, Container, TilingSprite } from "pixi.js";
 
-export class ApplicationView {
-    private app: Application;
-
+export class ApplicationView extends Application {
     constructor() {
-        this.app = new Application();
-        this.app.renderer.resize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(this.app.view);
+        super();
+        this.renderer.resize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(this.view);
     }
 
     loadAssets = async () => {
         return new Promise<void>((res, rej) => {
-            const loader = this.app.loader;
+            const loader = this.loader;
             loader
                 .add("background", "assets/backgrounds/page-background.png")
                 .add("slot", "assets/backgrounds/slot-background.png")
@@ -36,25 +34,29 @@ export class ApplicationView {
     onLoad = () => {
         const bgTexture = Texture.from("background");
         const slotTexture = Texture.from("slot");
-        const bgSprite = new TilingSprite(bgTexture, this.app.screen.width, this.app.screen.height);
+        const bgSprite = new TilingSprite(bgTexture, this.screen.width, this.screen.height);
         const slotSprite = new Sprite(slotTexture);
 
         slotSprite.width = 1200;
         slotSprite.height = 800;
-        slotSprite.x = this.app.screen.width / 2;
-        slotSprite.y = this.app.screen.height / 2;
+        slotSprite.x = this.screen.width / 2;
+        slotSprite.y = this.screen.height / 2;
         slotSprite.anchor.set(0.5);
 
-        this.app.stage.addChild(bgSprite, slotSprite);
+        this.stage.addChild(bgSprite, slotSprite);
     };
 
     addChild = (child: Container | Sprite) => {
-        this.app.stage.addChild(child);
+        this.stage.addChild(child);
     };
 
     start = () => {
-        this.app.ticker.add(() => {
+        this.ticker.add(() => {
             console.log("ticker");
         });
+    };
+
+    getTicker = () => {
+        return this.ticker;
     };
 }

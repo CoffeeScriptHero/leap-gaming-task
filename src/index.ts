@@ -29,6 +29,6 @@ window.onload = async (): Promise<void> => {
 
     app.addChild(spinButton.generate());
 
-    spinButton.handleClick();
+    spinButton.handleClick(() => reels.spin(app.getTicker()));
     app.start();
 };
