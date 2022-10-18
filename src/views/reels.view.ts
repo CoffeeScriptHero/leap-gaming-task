@@ -3,10 +3,15 @@ import { Texture, Sprite, Container, Application, Ticker } from "pixi.js";
 
 export class ReelsView extends Container {
     protected reels: Container[];
+    protected isRunning: boolean;
 
-    constructor() {
+    constructor(ticker: Ticker) {
         super();
         this.reels = [];
+        this.isRunning = false;
+        ticker.add((delta) => {
+            if (this.isRunning) this.spin(delta);
+        });
     }
 
     createReels = (reels: Reels) => {
@@ -21,6 +26,7 @@ export class ReelsView extends Container {
                 const symbol = new Sprite(slotTextures[j]);
                 symbol.x = Math.round((reels.symbolSize - symbol.width) / 2);
                 symbol.y = j * reels.symbolSize;
+
                 reelContainer.addChild(symbol);
             }
 
@@ -35,24 +41,18 @@ export class ReelsView extends Container {
         return this;
     };
 
-    spin = (ticker: Ticker) => {
-        let goDown = false;
+    setRunning = () => {
+        this.isRunning = true;
+    };
 
-        ticker.add((delta) => {
-            for (let i = 0; i < this.reels.length; i++) {
+    spin = (delta: number) => {
+        for (let i = 0; i < this.reels.length; i++) {
+            setTimeout(() => {
                 for (let j = 0; j < this.reels[i].children.length; j++) {
-                    const s = this.reels[i].children[j];
-                    if (s.y < -30) {
-                        goDown = true;
-                    }
-
-                    if (goDown) {
-                        s.y += delta * 2;
-                    } else {
-                        s.y -= delta * 2;
-                    }
+                    const s = this.reels[i].children[j]; // current symbol
+                    s.y -= 0.5;
                 }
-            }
-        });
+            }, i * 100);
+        }
     };
 }

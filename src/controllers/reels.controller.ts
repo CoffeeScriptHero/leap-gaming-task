@@ -1,15 +1,20 @@
 import { ReelsView } from "../views/reels.view";
 import { Reels } from "../models/reels.model";
-import { Ticker } from "pixi.js";
 
 export class ReelsController {
-    constructor(private reelsView: ReelsView, private reels: Reels) {}
+    private reelsView: ReelsView;
+    private reels: Reels;
+
+    constructor(reelsView: ReelsView, reels: Reels) {
+        this.reelsView = reelsView;
+        this.reels = reels;
+    }
 
     createReels = () => {
         return this.reelsView.createReels(this.reels);
     };
 
-    spin = (ticker: Ticker) => {
-        this.reelsView.spin(ticker);
+    setRunning = () => {
+        this.reelsView.setRunning();
     };
 }

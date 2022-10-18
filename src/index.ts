@@ -22,13 +22,13 @@ window.onload = async (): Promise<void> => {
     const app = new ApplicationController(new ApplicationView());
     await app.loadAssets();
 
-    const reels = new ReelsController(new ReelsView(), new Reels(reelsConfig));
+    const reels = new ReelsController(new ReelsView(app.getTicker()), new Reels(reelsConfig));
     app.addChild(reels.createReels());
 
     const spinButton = new SpinButtonController(new SpinButtonView(), new SpinButton());
 
     app.addChild(spinButton.generate());
 
-    spinButton.handleClick(() => reels.spin(app.getTicker()));
+    spinButton.handleClick(reels.setRunning);
     app.start();
 };
