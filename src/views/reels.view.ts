@@ -1,16 +1,24 @@
 import { Reels } from "../models/reels.model";
-import { Texture, Sprite, Container, Application, Ticker } from "pixi.js";
+import { Texture, Sprite, Container, Application, Ticker, Graphics } from "pixi.js";
 
 export class ReelsView extends Container {
     protected reels: Container[];
     protected isRunning: boolean;
+    protected bounceEnd: boolean;
 
     constructor(ticker: Ticker) {
         super();
         this.reels = [];
         this.isRunning = false;
+        this.bounceEnd = false;
         ticker.add((delta) => {
-            if (this.isRunning) this.spin(delta);
+            if (this.isRunning) {
+                if (this.bounceEnd) {
+                    // this.spin(delta);
+                } else {
+                    this.makeBounce(delta);
+                }
+            }
         });
     }
 
@@ -19,7 +27,8 @@ export class ReelsView extends Container {
 
         for (let i = 0; i < reels.number; i++) {
             const reelContainer = new Container();
-            reelContainer.x = i * reels.width;
+            reelContainer.x = reels.pos.x + i * reels.width;
+            reelContainer.y = reels.pos.y;
             this.addChild(reelContainer);
 
             for (let j = 0; j < reels.rows; j++) {
@@ -33,11 +42,6 @@ export class ReelsView extends Container {
             this.reels.push(reelContainer);
         }
 
-        this.x = window.innerWidth / 2;
-        this.y = window.innerHeight / 2;
-        this.pivot.x = this.width / 2;
-        this.pivot.y = this.height / 2;
-
         return this;
     };
 
@@ -47,12 +51,20 @@ export class ReelsView extends Container {
 
     spin = (delta: number) => {
         for (let i = 0; i < this.reels.length; i++) {
-            setTimeout(() => {
-                for (let j = 0; j < this.reels[i].children.length; j++) {
-                    const s = this.reels[i].children[j]; // current symbol
-                    s.y -= 0.5;
-                }
-            }, i * 100);
+            const reel = this.reels[i];
+        }
+    };
+
+    makeBounce = (delta: number) => {
+        const reelToBounce = this.reels.find((r) => r.children[0].y > -30);
+
+        if (reelToBounce) {
+            for (let i = 0; i < reelToBounce.children.length; i++) {
+                const s = reelToBounce.children[i];
+                s.y -= Math.cos(delta) * 2;
+            }
+        } else {
+            this.bounceEnd = true;
         }
     };
 }

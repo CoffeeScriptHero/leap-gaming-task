@@ -16,6 +16,7 @@ const reelsConfig = {
     rows: 3,
     width: 250,
     symbolSize: 150,
+    pos: { x: 630, y: 255 },
 };
 
 window.onload = async (): Promise<void> => {

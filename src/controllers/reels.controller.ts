@@ -11,7 +11,10 @@ export class ReelsController {
     }
 
     createReels = () => {
-        return this.reelsView.createReels(this.reels);
+        const a = this.reelsView.createReels(this.reels);
+        console.log(a.x, a.width);
+
+        return a;
     };
 
     setRunning = () => {
