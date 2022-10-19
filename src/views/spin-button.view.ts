@@ -24,6 +24,7 @@ export class SpinButtonView extends Sprite {
         this.on("click", () => {
             cb();
             this.filters = [alphaFilter];
+            this.buttonMode = false;
         });
     };
 }

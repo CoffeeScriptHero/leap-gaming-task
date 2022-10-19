@@ -1,3 +1,5 @@
+import { TextureSource } from "pixi.js";
+
 export interface ReelsInterface {
     number: number; // number of reels
     rows: number; // number of rows
@@ -5,13 +7,15 @@ export interface ReelsInterface {
     height: number; // each reel height
     symbolSize: number; // symbol size
     pos: { x: number; y: number }; // where reels begin
+    textures: TextureSource[]; // symbols textures
 }
 
 export const reelsModel: ReelsInterface = {
     number: 3,
     rows: 3,
     width: 250,
-    height: 415,
+    height: 462,
     symbolSize: 150,
     pos: { x: 630, y: 255 },
+    textures: ["apricot", "mushroom", "pineapple"],
 };

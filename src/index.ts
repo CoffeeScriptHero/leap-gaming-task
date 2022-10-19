@@ -14,7 +14,7 @@ window.onload = async (): Promise<void> => {
     const app = new ApplicationController(new ApplicationView());
     await app.loadAssets();
 
-    const reels = new ReelsController(new ReelsView(app.getTicker()));
+    const reels = new ReelsController(new ReelsView());
     app.addChild(reels.createReels());
 
     const spinButton = new SpinButtonController(new SpinButtonView(), new SpinButton());
