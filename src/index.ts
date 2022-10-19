@@ -8,28 +8,19 @@ import { ApplicationView } from "./views/application.view";
 import { ReelsView } from "./views/reels.view";
 import { SpinButtonView } from "./views/spin-button.view";
 
-import { Reels } from "./models/reels.model";
 import { SpinButton } from "./models/spin-button.model";
-
-const reelsConfig = {
-    number: 3,
-    rows: 3,
-    width: 250,
-    symbolSize: 150,
-    pos: { x: 630, y: 255 },
-};
 
 window.onload = async (): Promise<void> => {
     const app = new ApplicationController(new ApplicationView());
     await app.loadAssets();
 
-    const reels = new ReelsController(new ReelsView(app.getTicker()), new Reels(reelsConfig));
+    const reels = new ReelsController(new ReelsView(app.getTicker()));
     app.addChild(reels.createReels());
 
     const spinButton = new SpinButtonController(new SpinButtonView(), new SpinButton());
 
     app.addChild(spinButton.generate());
 
-    spinButton.handleClick(reels.setRunning);
+    spinButton.handleClick(reels.spin);
     app.start();
 };

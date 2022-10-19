@@ -1,23 +1,24 @@
 import { ReelsView } from "../views/reels.view";
-import { Reels } from "../models/reels.model";
+import { reelsModel } from "../models/reels.model";
 
 export class ReelsController {
     private reelsView: ReelsView;
-    private reels: Reels;
+    private reels;
 
-    constructor(reelsView: ReelsView, reels: Reels) {
+    constructor(reelsView: ReelsView) {
         this.reelsView = reelsView;
-        this.reels = reels;
+        this.reels = reelsModel;
     }
 
     createReels = () => {
-        const a = this.reelsView.createReels(this.reels);
-        console.log(a.x, a.width);
-
-        return a;
+        return this.reelsView.createReels(this.reels);
     };
 
     setRunning = () => {
         this.reelsView.setRunning();
+    };
+
+    spin = () => {
+        this.reelsView.spin(this.reels);
     };
 }
