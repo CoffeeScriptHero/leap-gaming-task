@@ -1,10 +1,9 @@
-import { ReelsInterface, reelsModel } from "../models/reels.model";
-import { Texture, Sprite, Container, Graphics, TextureSource } from "pixi.js";
-import Symbol from "./symbol.view";
+import { ReelsInterface } from "../models/reels.model";
+import { Texture, Container, Graphics } from "pixi.js";
+import Reel from "./reel.view";
 
 import { symbolModel } from "../models/symbol.model";
 
-import { getRandomNum } from "../helpers/random";
 import gsap from "gsap";
 
 export class ReelsView extends Container {
@@ -15,78 +14,58 @@ export class ReelsView extends Container {
         this.reels = [];
     }
 
-    createReels = (reels: ReelsInterface) => {
-        const { number, width, height, rows, pos } = reels;
+    createReels = (reelsModel: ReelsInterface) => {
+        const { number, pos, width, height, rows } = reelsModel;
         const { textures } = symbolModel;
 
         for (let i = 0; i < number; i++) {
-            const rc = new Container(); // reel container
-
-            const posx = pos.x + i * width;
-            const posy = pos.y;
-
-            rc.x = posx;
-            rc.y = posy;
-            rc.width = width;
-            rc.height = height;
-            this.addChild(rc);
-
-            for (let j = 0; j < rows + 2; j++) {
-                const index = j === 0 || j > rows ? getRandomNum(0, textures.length) : j - 1;
-                const texture = Texture.from(textures[index]);
-                const symbol = new Symbol(texture, j);
-                rc.addChild(symbol);
-            }
-
-            this.reels.push(rc);
+            const reel = new Reel(i, pos, width, height, rows, textures);
+            this.addChild(reel);
+            this.reels.push(reel);
         }
 
         const mask = new Graphics();
         mask.beginFill(0x00);
-        mask.drawRect(reels.pos.x, reels.pos.y - 30, reels.pos.x + reels.width * 2, reels.height);
+        mask.drawRect(pos.x - 5, pos.y + symbolModel.size - 30, pos.x + width * 2, height);
         mask.endFill();
-
-        // this.mask = mask;
+        this.mask = mask;
 
         return this;
     };
 
-    sleep(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
+    spin = async () => {
+        for (let i = 0; i < this.reels.length; i++) {
+            await this.delay(100);
+            this.animate(this.reels[i]);
+        }
+    };
 
-    animate = async (reel, i) => {
+    private animate = async (reel: Reel) => {
         let promises = [];
-        console.log(`---------------REEL ${i} START---------------`);
         for (let j = 0; j < reel.children.length; j++) {
-            const symbol = reel.children[j];
-            let defaultY = reel.children[j].y;
-
-            let animation = gsap.to(symbol, {
+            let symbol = reel.children[j];
+            let animation = gsap.to(reel.children[j], {
                 duration: 1.25,
-                y: `+=7500`,
+                y: `+=6750`,
                 ease: "back.inOut(0.7)",
                 modifiers: {
-                    y(y) {
-                        console.log(`parseFloat(${y}) % 800 = ${parseFloat(y) % 800}`);
-                        let newY = (parseFloat(y) % 750) - reelsModel.symbolSize;
-                        let diff = newY - defaultY;
-                        // if (newY < defaultY && diff < -150) {
-                        //     symbol.setRandomTexture();
-                        // }
+                    y(y, symbol) {
+                        const newY = parseFloat(y) % 750;
+                        let diff = newY - symbol.defaultY;
+                        if (newY < symbol.defaultY && diff < -100) {
+                            symbol.setRandomTexture();
+                        }
+                        symbol.defaultY = newY;
                         return newY;
                     },
                 },
             });
             promises.push(animation);
         }
-        console.log(`---------------REEL ${i} END---------------`);
         return Promise.all(promises);
     };
 
-    spin = async () => {
-        for (let i = 0; i < this.reels.length; i++) {
-            await this.animate(this.reels[i], i);
-        }
-    };
+    private delay(ms: number) {
+        return new Promise((res) => setTimeout(res, ms));
+    }
 }

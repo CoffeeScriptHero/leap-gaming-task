@@ -11,7 +11,7 @@ export const reelsModel: ReelsInterface = {
     number: 3,
     rows: 3,
     width: 250,
-    height: 480,
+    height: 485,
     symbolSize: 150,
-    pos: { x: 630, y: 255 },
+    pos: { x: 630, y: 105 },
 };

@@ -5,8 +5,8 @@ export class ReelsController {
     private reelsView: ReelsView;
     private reels;
 
-    constructor(reelsView: ReelsView) {
-        this.reelsView = reelsView;
+    constructor() {
+        this.reelsView = new ReelsView();
         this.reels = reelsModel;
     }
 
@@ -15,6 +15,6 @@ export class ReelsController {
     };
 
     spin = () => {
-        this.reelsView.spin(this.reels);
+        this.reelsView.spin();
     };
 }
