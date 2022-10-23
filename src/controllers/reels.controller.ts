@@ -14,10 +14,6 @@ export class ReelsController {
         return this.reelsView.createReels(this.reels);
     };
 
-    setRunning = () => {
-        this.reelsView.setRunning();
-    };
-
     spin = () => {
         this.reelsView.spin(this.reels);
     };
