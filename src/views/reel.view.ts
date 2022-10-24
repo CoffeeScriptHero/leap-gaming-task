@@ -1,5 +1,4 @@
 import { Container, Texture, TextureSource } from "pixi.js";
-import { ReelsInterface } from "../models/reels.model";
 import Symbol from "./symbol.view";
 
 class Reel extends Container {
@@ -14,15 +13,19 @@ class Reel extends Container {
         super();
         this.x = pos.x + reelNumber * width;
         this.y = pos.y;
-        this.width = width;
-        this.height = height;
+        this.setSize(width, height);
         this.createSymbols(rows, textures);
     }
+
+    setSize = (width: number, height: number) => {
+        this.width = width;
+        this.height = height;
+    };
 
     private createSymbols = (rows: number, textures: TextureSource[]) => {
         // 2 extra hidden rows, one at the top and one at the bottom
         for (let j = 0; j < rows + 2; j++) {
-            // if it is one of the hidden rows, than symbol texture will be random
+            // if it is one of the hidden rows, then symbol texture will be random
             const index = j === 0 || j > rows ? this.getRandomNum(0, textures.length) : j - 1;
             const texture = Texture.from(textures[index]);
             const symbol = new Symbol(texture, j);

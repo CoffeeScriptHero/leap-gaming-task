@@ -1,11 +1,11 @@
 import { Container, Sprite } from "pixi.js";
 import { ApplicationView } from "../views/application.view";
 
-export class ApplicationController {
+class ApplicationController {
     private appView: ApplicationView;
 
-    constructor(appView: ApplicationView) {
-        this.appView = appView;
+    constructor() {
+        this.appView = new ApplicationView();
     }
 
     loadAssets = async () => {
@@ -21,6 +21,8 @@ export class ApplicationController {
     };
 
     getTicker = () => {
-        return this.appView.getTicker();
+        return this.appView.ticker;
     };
 }
+
+export default ApplicationController;

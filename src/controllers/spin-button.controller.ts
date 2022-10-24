@@ -1,14 +1,22 @@
 import { SpinButtonView } from "../views/spin-button.view";
-import { SpinButton } from "../models/spin-button.model";
+import { spinButtonModel, SpinButtonInterface } from "../models/spin-button.model";
 
-export class SpinButtonController {
-    constructor(private spinButtonView: SpinButtonView, private spinButton: SpinButton) {}
+class SpinButtonController {
+    private spinButtonView: SpinButtonView;
+    private spinButtonModel: SpinButtonInterface;
 
-    generate = () => {
-        return this.spinButtonView.generate();
+    constructor() {
+        this.spinButtonView = new SpinButtonView();
+        this.spinButtonModel = spinButtonModel;
+    }
+
+    getButton = () => {
+        return this.spinButtonView;
     };
 
     handleClick = (cb: Function) => {
-        this.spinButtonView.handleClick(this.spinButton.alphaFilter, cb);
+        this.spinButtonView.handleClick(this.spinButtonModel.alphaFilter, cb);
     };
 }
+
+export default SpinButtonController;

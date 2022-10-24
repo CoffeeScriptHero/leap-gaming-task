@@ -1,15 +1,12 @@
 import { Sprite, Texture } from "pixi.js";
-import { symbolModel as model } from "../models/symbol.model";
+import { symbolModel } from "../models/symbol.model";
 
 class Symbol extends Sprite {
-    private defaultY: number;
-
     constructor(texture: Texture, colPosition: number) {
         super();
         this.texture = texture;
-        this.setX(Math.round((model.size - this.width) / 2));
-        this.setY(colPosition * model.size);
-        this.defaultY = colPosition * model.size;
+        this.setX(Math.round((symbolModel.size - this.width) / 2));
+        this.setY(colPosition * symbolModel.size);
     }
 
     setX = (x: number) => {
@@ -25,10 +22,10 @@ class Symbol extends Sprite {
     };
 
     setRandomTexture = () => {
-        const { textures } = model;
+        const { textures, size } = symbolModel;
         const index = Math.floor(Math.random() * textures.length);
         this.texture = Texture.from(textures[index]);
-        this.setX(Math.round((model.size - this.width) / 2));
+        this.setX(Math.round((size - this.width) / 2));
     };
 }
 

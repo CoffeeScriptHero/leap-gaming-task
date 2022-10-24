@@ -53,8 +53,4 @@ export class ApplicationView extends Application {
     start = () => {
         this.ticker.add(() => {});
     };
-
-    getTicker = () => {
-        return this.ticker;
-    };
 }

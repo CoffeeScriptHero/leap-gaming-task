@@ -1,20 +1,21 @@
-import { ReelsView } from "../views/reels.view";
+import ReelsView from "../views/reels.view";
 import { reelsModel } from "../models/reels.model";
+import { symbolModel } from "../models/symbol.model";
 
-export class ReelsController {
+class ReelsController {
     private reelsView: ReelsView;
-    private reels;
 
     constructor() {
-        this.reelsView = new ReelsView();
-        this.reels = reelsModel;
+        this.reelsView = new ReelsView(reelsModel, symbolModel);
     }
 
     createReels = () => {
-        return this.reelsView.createReels(this.reels);
+        return this.reelsView.createReels();
     };
 
     spin = () => {
-        this.reelsView.spin();
+        return this.reelsView.spin();
     };
 }
+
+export default ReelsController;

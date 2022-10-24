@@ -1,17 +1,9 @@
 import { Filter, filters } from "pixi.js";
 
-export interface SpinButtonDto {
+export interface SpinButtonInterface {
     alphaFilter: Filter;
 }
 
-export class SpinButton {
-    public alphaFilter: Filter;
-
-    constructor(
-        { alphaFilter }: SpinButtonDto = {
-            alphaFilter: new filters.AlphaFilter(0.7),
-        },
-    ) {
-        this.alphaFilter = alphaFilter;
-    }
-}
+export const spinButtonModel: SpinButtonInterface = {
+    alphaFilter: new filters.AlphaFilter(0.7),
+};
