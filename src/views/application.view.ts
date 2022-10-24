@@ -16,7 +16,12 @@ export class ApplicationView extends Application {
                 .add("apricot", "assets/symbols/apricot.png")
                 .add("mushroom", "assets/symbols/mushroom.png")
                 .add("pineapple", "assets/symbols/pineapple.png")
-                .add("spin-button", "assets/other/spin-button.png");
+                .add("spin-button", "assets/buttons/spin.png")
+                .add("plus-button", "assets/buttons/plus.png")
+                .add("minus-button", "assets/buttons/minus.png")
+                .add("credits", "assets/fields/credits.png")
+                .add("prize", "assets/fields/prize.png")
+                .add("bet", "assets/fields/total-bet.png");
 
             loader.onComplete.once(() => {
                 this.onLoad();

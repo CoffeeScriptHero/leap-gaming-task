@@ -1,5 +1,5 @@
 import { Container, Texture, TextureSource } from "pixi.js";
-import Symbol from "./symbol.view";
+import Symbol from "./symbol";
 
 class Reel extends Container {
     constructor(

@@ -1,32 +1,17 @@
-import { Filter, Sprite, Texture } from "pixi.js";
+import Button from "../classes/button";
 
-export class SpinButtonView extends Sprite {
+export class SpinButtonView extends Button {
     constructor() {
-        super();
-        this.texture = Texture.from("spin-button");
-        this.buttonMode = true;
-        this.interactive = true;
-        this.anchor.set(0.5);
-        this.width = 400;
-        this.height = 150;
-        this.x = window.innerWidth / 2;
-        this.y = window.innerHeight - 70;
+        super("spin-button", 400, 150, window.innerWidth / 2, window.innerHeight - 70);
     }
 
-    toggleButtonState = (alphaFilter: Filter) => {
-        if (this.filters) {
-            this.filters = this.filters.length ? [] : [alphaFilter];
-        } else {
-            this.filters = [alphaFilter];
-        }
-        this.interactive = !this.interactive;
-    };
-
-    handleClick = (alphaFilter: Filter, cb: Function) => {
+    handleClick = (spin: Function, toggleBetButtonsState: Function) => {
         this.on("click", () => {
-            this.toggleButtonState(alphaFilter);
-            cb().then(() => {
-                this.toggleButtonState(alphaFilter);
+            this.toggleButtonState();
+            toggleBetButtonsState();
+            spin().then(() => {
+                this.toggleButtonState();
+                toggleBetButtonsState();
             });
         });
     };

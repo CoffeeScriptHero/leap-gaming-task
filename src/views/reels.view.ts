@@ -1,8 +1,8 @@
 import { ReelsInterface } from "../models/reels.model";
 import { SymbolInterface } from "../models/symbol.model";
-import { Container, Graphics, Sprite } from "pixi.js";
+import { Container, DisplayObject, Graphics } from "pixi.js";
 
-import Reel from "./reel.view";
+import Reel from "../classes/reel";
 
 import gsap from "gsap";
 
@@ -43,9 +43,9 @@ class ReelsView extends Container {
             await this.delay(100);
             promises.push(this.animate(this.reels[i]));
         }
-        const promise = await Promise.all(promises);
-        await this.checkWinLines();
-        return promise;
+        await Promise.all(promises);
+        const winLinesPromise = await this.animateWinLines();
+        return winLinesPromise;
     };
 
     private animate = (reel: Container) => {
@@ -77,12 +77,12 @@ class ReelsView extends Container {
         return new Promise((res) => setTimeout(res, ms));
     };
 
-    private checkWinLines = async () => {
+    private animateWinLines = async () => {
         let promises = [];
 
         for (let col = 0; col < this.reels.length; col++) {
             const reel = this.reels[col];
-            let [colCombination, rowCombination] = this.checkCombination(reel, col);
+            let [colCombination, rowCombination] = this.checkCombinations(reel, col);
 
             for (let row = 1; row < reel.children.length - 1; row++) {
                 if (colCombination) {
@@ -95,10 +95,10 @@ class ReelsView extends Container {
             }
         }
 
-        await Promise.all(promises);
+        return Promise.all(promises);
     };
 
-    private checkCombination = (reel: Reel, col: number) => {
+    private checkCombinations = (reel: Reel, col: number) => {
         let colCombination = true;
         let rowCombination = true;
 
@@ -121,18 +121,18 @@ class ReelsView extends Container {
         return [colCombination, rowCombination];
     };
 
-    private highlightSymbol = (symbol: Symbol) => {
+    private highlightSymbol = (symbol: DisplayObject) => {
         const tl = gsap.timeline();
         return tl
             .to(symbol.scale, {
                 x: 1.2,
                 y: 1.2,
-                duration: 1,
+                duration: 0.8,
             })
             .to(symbol.scale, {
                 x: 1.0,
                 y: 1.0,
-                duration: 1,
+                duration: 0.8,
             });
     };
 }
