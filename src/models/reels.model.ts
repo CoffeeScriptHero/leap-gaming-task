@@ -1,3 +1,5 @@
+import { appConfig } from "./application.model";
+
 export interface ReelsInterface {
     number: number; // number of reels
     rows: number; // number of rows
@@ -11,5 +13,5 @@ export const reelsModel: ReelsInterface = {
     rows: 3,
     width: 250,
     height: 485,
-    pos: { x: 630, y: 105 },
+    pos: { x: appConfig.isDesktop ? 630 : 400, y: appConfig.isDesktop ? 105 : 35 },
 };

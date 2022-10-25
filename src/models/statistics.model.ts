@@ -1,4 +1,5 @@
 import { TextStyle, TextureSource } from "pixi.js";
+import { appConfig } from "./application.model";
 
 export interface StatisticsInterface {
     values: {
@@ -19,7 +20,7 @@ export const statisticsModel: StatisticsInterface = {
         bet: parseInt(localStorage.getItem("bet") || "") || 20,
     },
     betStep: 20,
-    pos: { x: 1360, y: 300 },
+    pos: { x: appConfig.isDesktop ? 1360 : 1100, y: appConfig.isDesktop ? 300 : 230 },
     textures: ["credits", "prize", "bet"],
     textStyle: new TextStyle({
         fontFamily: "Comic Sans MS",

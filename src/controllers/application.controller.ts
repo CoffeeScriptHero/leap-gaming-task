@@ -1,11 +1,12 @@
 import { Container, Sprite } from "pixi.js";
 import { ApplicationView } from "../views/application.view";
+import { appConfig } from "../models/application.model";
 
 class ApplicationController {
     private appView: ApplicationView;
 
     constructor() {
-        this.appView = new ApplicationView();
+        this.appView = new ApplicationView(appConfig);
     }
 
     loadAssets = async () => {

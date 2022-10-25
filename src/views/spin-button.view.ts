@@ -1,8 +1,9 @@
 import Button from "../classes/button";
+import { SpinButtonInterface } from "../models/spin-button.model";
 
 export class SpinButtonView extends Button {
-    constructor() {
-        super("spin-button", 400, 150, window.innerWidth / 2, window.innerHeight - 70);
+    constructor(model: SpinButtonInterface) {
+        super("spin-button", model.width, model.height, model.pos.x, model.pos.y);
     }
 
     handleClick = (spin: Function, updateStatistics: Function) => {

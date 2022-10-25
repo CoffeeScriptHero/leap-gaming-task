@@ -1,13 +1,19 @@
 import { Application, Texture, Sprite, Container, TilingSprite } from "pixi.js";
+import { ApplicationInterface } from "../models/application.model";
 
 export class ApplicationView extends Application {
-    constructor() {
+    private appConfig;
+
+    constructor(appConfig: ApplicationInterface) {
         super();
+        this.appConfig = appConfig;
         this.renderer.resize(window.innerWidth, window.innerHeight);
         document.body.appendChild(this.view);
     }
 
     private onLoad = () => {
+        const { isDesktop, slotWidth, slotHeight } = this.appConfig;
+
         const bgTexture = Texture.from("background");
         const slotTexture = Texture.from("slot");
         const monkeyTexture = Texture.from("monkey");
@@ -18,8 +24,8 @@ export class ApplicationView extends Application {
         const monkeySprite = new Sprite(monkeyTexture);
         const titleSprite = new Sprite(titleTexture);
 
-        slotSprite.width = 1200;
-        slotSprite.height = 800;
+        slotSprite.width = slotWidth;
+        slotSprite.height = slotHeight;
         slotSprite.x = this.screen.width / 2;
         slotSprite.y = this.screen.height / 2;
         slotSprite.anchor.set(0.5);
@@ -30,7 +36,7 @@ export class ApplicationView extends Application {
         titleSprite.anchor.set(0.5);
         slotSprite.addChild(titleSprite);
 
-        monkeySprite.x = 300;
+        monkeySprite.x = isDesktop ? 300 : 195;
         monkeySprite.y = this.screen.height - monkeySprite.height;
 
         this.stage.addChild(bgSprite, slotSprite, monkeySprite);

@@ -1,10 +1,11 @@
 import { SpinButtonView } from "../views/spin-button.view";
+import { spinButtonModel } from "../models/spin-button.model";
 
 class SpinButtonController {
     private spinButtonView: SpinButtonView;
 
     constructor() {
-        this.spinButtonView = new SpinButtonView();
+        this.spinButtonView = new SpinButtonView(spinButtonModel);
     }
 
     getButton = () => this.spinButtonView;
