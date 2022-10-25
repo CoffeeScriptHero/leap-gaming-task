@@ -16,10 +16,6 @@ class ApplicationController {
         this.appView.addChild(child);
     };
 
-    start = () => {
-        this.appView.start();
-    };
-
     getTicker = () => {
         return this.appView.ticker;
     };

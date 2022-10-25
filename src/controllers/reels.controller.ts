@@ -9,13 +9,9 @@ class ReelsController {
         this.reelsView = new ReelsView(reelsModel, symbolModel);
     }
 
-    createReels = () => {
-        return this.reelsView.createReels();
-    };
+    getReels = () => this.reelsView;
 
-    spin = () => {
-        return this.reelsView.spin();
-    };
+    spin = () => this.reelsView.spin();
 }
 
 export default ReelsController;

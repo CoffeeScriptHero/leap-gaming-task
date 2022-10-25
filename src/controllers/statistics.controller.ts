@@ -8,9 +8,7 @@ class StatisticsController {
         this.statisticsView = new StatisticsView(statisticsModel);
     }
 
-    getStatistics = () => {
-        return this.statisticsView.getStatistics();
-    };
+    getStatistics = () => this.statisticsView;
 
     updateStatistics = (coeff?: number) => {
         const bet = statisticsModel.values.bet;

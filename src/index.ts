@@ -10,7 +10,7 @@ window.onload = async () => {
     await app.loadAssets();
 
     const reels = new ReelsController();
-    app.addChild(reels.createReels());
+    app.addChild(reels.getReels());
 
     const spinButton = new SpinButtonController();
     app.addChild(spinButton.getButton());
@@ -19,5 +19,4 @@ window.onload = async () => {
     app.addChild(statistics.getStatistics());
 
     spinButton.handleClick(reels.spin, statistics.updateStatistics);
-    app.start();
 };

@@ -3,7 +3,6 @@ export interface ReelsInterface {
     rows: number; // number of rows
     width: number; // each reel width
     height: number; // each reel height
-    symbolSize: number; // symbol size
     pos: { x: number; y: number }; // where reels begin
 }
 
@@ -12,6 +11,5 @@ export const reelsModel: ReelsInterface = {
     rows: 3,
     width: 250,
     height: 485,
-    symbolSize: 150,
     pos: { x: 630, y: 105 },
 };

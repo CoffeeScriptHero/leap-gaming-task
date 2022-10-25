@@ -7,9 +7,7 @@ class SpinButtonController {
         this.spinButtonView = new SpinButtonView();
     }
 
-    getButton = () => {
-        return this.spinButtonView;
-    };
+    getButton = () => this.spinButtonView;
 
     handleClick = (spin: Function, updateStatistics: Function) => {
         this.spinButtonView.handleClick(spin, updateStatistics);

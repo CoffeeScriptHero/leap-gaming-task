@@ -1,9 +1,7 @@
 import { ReelsInterface } from "../models/reels.model";
 import { SymbolInterface } from "../models/symbol.model";
 import { Container, DisplayObject, Graphics } from "pixi.js";
-
 import Reel from "../classes/reel";
-
 import gsap from "gsap";
 
 class ReelsView extends Container {
@@ -16,6 +14,7 @@ class ReelsView extends Container {
         this.reels = [];
         this.reelsModel = reelsModel;
         this.symbolModel = symbolModel;
+        this.createReels();
     }
 
     createReels = () => {
@@ -33,8 +32,6 @@ class ReelsView extends Container {
         mask.drawRect(pos.x - 5, pos.y + size - 30, pos.x + width * 2, height);
         mask.endFill();
         this.mask = mask;
-
-        return this;
     };
 
     spin = async () => {
@@ -73,9 +70,7 @@ class ReelsView extends Container {
         return Promise.all(promises);
     };
 
-    private delay = (ms: number) => {
-        return new Promise((res) => setTimeout(res, ms));
-    };
+    private delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
     private animateWinLines = async () => {
         let promises = [];

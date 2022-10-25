@@ -1,4 +1,8 @@
 body {
     overflow: hidden;
+    height: 100vh;
     margin: 0 auto;
+    background-image: url("../assets/backgrounds/leap-gaming.png");
+    background-position: center;
+    background-repeat: no-repeat;
 }

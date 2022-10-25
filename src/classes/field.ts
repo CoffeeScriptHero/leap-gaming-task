@@ -16,13 +16,11 @@ class Field extends Sprite {
         this.addChild(this.text);
     }
 
-    getTextureType = () => {
-        return this.textureType;
-    };
-
     updateText = (value: number) => {
         this.text.text = value;
     };
+
+    getTextureType = () => this.textureType;
 }
 
 export default Field;

@@ -35,7 +35,6 @@ class StatisticsView extends Container {
         const minusButton = new BetButton("minus-button", 50, 50, 160, 325, bet, this.changeBet);
 
         this.buttons.push(plusButton, minusButton);
-
         this.addChild(plusButton, minusButton);
     };
 
@@ -70,8 +69,6 @@ class StatisticsView extends Container {
     };
 
     getButtons = () => this.buttons;
-
-    getStatistics = () => this;
 }
 
 export default StatisticsView;
