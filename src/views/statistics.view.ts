@@ -55,6 +55,20 @@ class StatisticsView extends Container {
         this.fields.find((f) => f.getTextureType() === "bet")?.updateText(newBet);
     };
 
+    changeBalance = (prize: number) => {
+        const oldBalance = this.statisticModel.values.balance;
+        const newBalance = oldBalance + prize;
+
+        localStorage.setItem("balance", JSON.stringify(newBalance));
+        this.statisticModel.values.balance = newBalance;
+
+        this.fields.find((f) => f.getTextureType() === "credits")?.updateText(newBalance);
+    };
+
+    changePrize = (prize: number) => {
+        this.fields.find((f) => f.getTextureType() === "prize")?.updateText(prize);
+    };
+
     getButtons = () => this.buttons;
 
     getStatistics = () => this;

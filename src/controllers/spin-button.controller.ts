@@ -11,8 +11,8 @@ class SpinButtonController {
         return this.spinButtonView;
     };
 
-    handleClick = (spin: Function, toggleBetButtonsState: Function) => {
-        this.spinButtonView.handleClick(spin, toggleBetButtonsState);
+    handleClick = (spin: Function, updateStatistics: Function) => {
+        this.spinButtonView.handleClick(spin, updateStatistics);
     };
 }
 

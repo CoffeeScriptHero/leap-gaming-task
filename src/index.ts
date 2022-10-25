@@ -18,6 +18,6 @@ window.onload = async () => {
     const statistics = new StatisticsController();
     app.addChild(statistics.getStatistics());
 
-    spinButton.handleClick(reels.spin, statistics.toggleBetButtonsState);
+    spinButton.handleClick(reels.spin, statistics.updateStatistics);
     app.start();
 };

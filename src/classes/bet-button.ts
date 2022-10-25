@@ -2,6 +2,8 @@ import Button from "./button";
 import { TextureSource } from "pixi.js";
 
 class BetButton extends Button {
+    private type: TextureSource;
+
     constructor(
         textureType: TextureSource,
         width: number,
@@ -12,18 +14,20 @@ class BetButton extends Button {
         changeBet: Function,
     ) {
         super(textureType, width, height, x, y);
-        this.checkToDisable(textureType, bet);
-        this.on("click", this.handleClick.bind(this, textureType, changeBet));
+        this.type = textureType;
+        this.on("click", this.handleClick.bind(this, changeBet));
+        if (this.checkToDisable(bet)) this.toggleButtonState();
     }
 
-    checkToDisable = (textureType: TextureSource, bet: number) => {
-        if ((bet === 20 && textureType === "minus-button") || (bet === 200 && textureType === "plus-button")) {
-            this.toggleButtonState();
-        }
+    private handleClick = (changeBet: Function) => {
+        changeBet(this.type === "plus-button" ? 20 : -20, this);
     };
 
-    private handleClick = (textureType: TextureSource, changeBet: Function) => {
-        changeBet(textureType === "plus-button" ? 20 : -20, this);
+    checkToDisable = (bet: number) => {
+        if ((bet === 20 && this.type === "minus-button") || (bet === 200 && this.type === "plus-button")) {
+            return true;
+        }
+        return false;
     };
 }
 
